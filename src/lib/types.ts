@@ -26,5 +26,4 @@ export interface NewTrip {
   trip_date: string
   type: TripType
   direction: TripDirection
-  points: number
 }

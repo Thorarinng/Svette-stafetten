@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { hasDisplayName } from '../lib/auth'
 import { useAuth } from '../contexts/AuthContext'
+import { isLocalDevOrigin } from '../lib/authRedirect'
 import { ALLOWED_EMAIL_DOMAINS } from '../lib/email'
 
 export function AuthPanel() {
@@ -33,6 +34,12 @@ export function AuthPanel() {
           Kun {ALLOWED_EMAIL_DOMAINS.map((d) => `@${d}`).join(' / ')}. Magisk lenke — ingen
           passord.
         </p>
+        {isLocalDevOrigin() && (
+          <p className="mt-2 rounded-xl bg-warning/10 px-3 py-2 text-xs font-medium text-warning ring-1 ring-warning/20">
+            Du er på localhost — innloggingslenken i e-posten peker hit. For produksjon: åpne
+            Vercel-URL-en og be om ny lenke der.
+          </p>
+        )}
 
         <form
           className="mt-4 space-y-3"

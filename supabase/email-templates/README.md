@@ -31,8 +31,10 @@ Det er lenken brukeren klikker for å logge inn. Uten den fungerer ikke innloggi
 
 | Felt | Verdi |
 |------|--------|
-| Site URL | `https://din-app.vercel.app` (eller `http://localhost:5173` lokalt) |
-| Redirect URLs | Samme URL + evt. `http://localhost:5173` |
+| Site URL | `https://din-app.vercel.app` (produksjon — **ikke** localhost som Site URL) |
+| Redirect URLs | `https://din-app.vercel.app` **og** `http://localhost:5173` |
+
+**Magisk lenke peker dit brukeren ber om innlogging:** localhost → `http://localhost:5173`, Vercel → produksjons-URL. Sett `VITE_APP_URL` på Vercel (se README).
 
 ## «Opt out» / «powered by Supabase»
 

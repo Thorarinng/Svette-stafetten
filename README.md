@@ -16,7 +16,7 @@ Enkel webapp for å logge sykkel- og løpeturer til/fra jobb i en kontorkonkurra
 1. Opprett et prosjekt på [supabase.com](https://supabase.com).
 2. Kjør SQL fra [`supabase/setup.sql`](supabase/setup.sql) i SQL Editor (oppretter `trips`-tabellen).
    - For rediger/slett: kjør [`supabase/RUN_THIS_FOR_EDIT_DELETE.sql`](supabase/RUN_THIS_FOR_EDIT_DELETE.sql) i SQL Editor.
-   - For én tur per dag + datovelger: kjør [`supabase/migrations/006_trip_date.sql`](supabase/migrations/006_trip_date.sql) i SQL Editor.
+   - **Eksisterende database:** kjør [`supabase/RUN_THIS_ALL.sql`](supabase/RUN_THIS_ALL.sql) én gang i SQL Editor (trip_date, poeng, RLS).
 3. **Authentication** → **Providers** → slå på **Email** (magic link).
 4. **Authentication** → **URL Configuration** → legg til redirect-URL-er:
    - `http://localhost:5173` (lokalt)
@@ -40,7 +40,19 @@ npm run dev
 2. Legg til miljøvariabler:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
+   - `VITE_APP_URL` = `https://din-app.vercel.app` (samme som Vercel-URL)
 3. Deploy.
+
+### 4. Supabase innloggingslenke (viktig)
+
+**Authentication** → **URL Configuration**:
+
+| Felt | Verdi |
+|------|--------|
+| Site URL | `https://din-app.vercel.app` |
+| Redirect URLs | `https://din-app.vercel.app`, `http://localhost:5173` |
+
+Be om magisk lenke fra **Vercel-URL** i produksjon — ikke fra `npm run dev`, ellers peker e-posten til localhost.
 
 ## Poeng
 

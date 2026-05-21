@@ -5,16 +5,35 @@ import { MyTrips } from './components/MyTrips'
 import { StatsBar } from './components/StatsBar'
 import { TripForm } from './components/TripForm'
 import { AuthProvider } from './contexts/AuthContext'
-import { useTrips } from './hooks/useTrips'
+import { TRIP_DATE_SETUP_HINT, useTrips } from './hooks/useTrips'
 
 function AppContent() {
-  const { trips, loading, error, addTrip, updateTrip, deleteTrip } = useTrips()
+  const {
+    trips,
+    loading,
+    error,
+    needsTripDateMigration,
+    addTrip,
+    updateTrip,
+    deleteTrip,
+  } = useTrips()
 
   return (
     <div className="min-h-svh">
       <Header />
 
       <main className="relative mx-auto max-w-lg space-y-4 px-4 py-5 pb-10 sm:space-y-5 sm:py-6">
+        {needsTripDateMigration && (
+          <div className="metzum-alert-error">
+            <p className="font-semibold">Database må oppdateres</p>
+            <p className="mt-1">{TRIP_DATE_SETUP_HINT}</p>
+            <p className="mt-2 text-xs opacity-90">
+              Supabase Dashboard → SQL Editor → lim inn hele{' '}
+              <code className="rounded bg-black/5 px-1">RUN_THIS_ALL.sql</code> fra repoet.
+            </p>
+          </div>
+        )}
+
         {error && (
           <div className="metzum-alert-error">
             Kunne ikke laste data: {error}. Sjekk Supabase-tilkoblingen.

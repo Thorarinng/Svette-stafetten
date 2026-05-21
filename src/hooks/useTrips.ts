@@ -20,17 +20,42 @@ function isSchemaSetupError(message: string): boolean {
 const SETUP_HINT =
   'Kjør supabase/RUN_THIS_FOR_EDIT_DELETE.sql i Supabase SQL Editor, vent 10 sek, og prøv igjen.'
 
+export const TRIP_DATE_SETUP_HINT =
+  'Kjør supabase/RUN_THIS_ALL.sql i Supabase → SQL Editor → Run. Vent ~10 sek og last siden på nytt (hard refresh: Cmd+Shift+R).'
+
+function isTripDateMissingError(message: string): boolean {
+  return (
+    message.includes('trip_date') &&
+    (message.includes('does not exist') || message.includes('schema cache'))
+  )
+}
+
+async function tripDateColumnExists(): Promise<boolean> {
+  const { error } = await supabase.from('trips').select('trip_date').limit(1)
+  return !error
+}
+
 export function useTrips() {
   const [trips, setTrips] = useState<Trip[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [needsTripDateMigration, setNeedsTripDateMigration] = useState(false)
 
   const fetchTrips = useCallback(async () => {
-    const { data, error: fetchError } = await supabase
-      .from('trips')
-      .select('*')
-      .order('trip_date', { ascending: false })
-      .order('created_at', { ascending: false })
+    const hasTripDate = await tripDateColumnExists()
+    setNeedsTripDateMigration(!hasTripDate)
+
+    let query = supabase.from('trips').select('*')
+
+    if (hasTripDate) {
+      query = query
+        .order('trip_date', { ascending: false })
+        .order('created_at', { ascending: false })
+    } else {
+      query = query.order('created_at', { ascending: false })
+    }
+
+    const { data, error: fetchError } = await query
 
     if (fetchError) {
       setError(fetchError.message)
@@ -97,7 +122,6 @@ export function useTrips() {
         trip_date: tripDate,
         type,
         direction,
-        points,
       }
 
       const { data, error: insertError } = await supabase
@@ -112,12 +136,10 @@ export function useTrips() {
           throw new Error('Du har allerede registrert en tur denne dagen')
         }
         if (
-          insertError.message.includes('trip_date') ||
-          insertError.message.includes('column')
+          isTripDateMissingError(insertError.message) ||
+          insertError.message.includes('trip_date')
         ) {
-          throw new Error(
-            'Kjør supabase/migrations/006_trip_date.sql i Supabase SQL Editor, vent 10 sek, og prøv igjen.',
-          )
+          throw new Error(TRIP_DATE_SETUP_HINT)
         }
         throw new Error(insertError.message)
       }
@@ -157,7 +179,7 @@ export function useTrips() {
 
       const { data, error: updateError } = await supabase
         .from('trips')
-        .update({ type, direction, points, user_id: userId })
+        .update({ type, direction, user_id: userId })
         .eq('id', tripId)
         .select()
 
@@ -233,6 +255,7 @@ export function useTrips() {
     trips,
     loading,
     error,
+    needsTripDateMigration,
     addTrip,
     updateTrip,
     deleteTrip,

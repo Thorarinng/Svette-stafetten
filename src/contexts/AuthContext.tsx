@@ -9,6 +9,7 @@ import {
 } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
 import { getDisplayName } from '../lib/auth'
+import { getAuthRedirectUrl } from '../lib/authRedirect'
 import { allowedEmailError, isAllowedEmail } from '../lib/email'
 import { supabase } from '../lib/supabase'
 
@@ -66,7 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { error } = await supabase.auth.signInWithOtp({
       email: trimmed,
       options: {
-        emailRedirectTo: window.location.origin,
+        emailRedirectTo: getAuthRedirectUrl(),
       },
     })
 
