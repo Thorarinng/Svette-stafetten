@@ -3,61 +3,102 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>Svette-stafetten</title>
 </head>
-<body style="margin:0;padding:0;background-color:#f0f0f0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#f0f0f0;padding:32px 16px;">
+<body style="margin:0;padding:0;background-color:#f0f7f8;font-family:'Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:linear-gradient(180deg,#fffdf6 0%,#f0f7f8 100%);padding:40px 16px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:480px;background-color:#fcfcfc;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(17,24,26,0.12);">
-          <!-- Header -->
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:520px;">
+          <!-- Accent top bar -->
           <tr>
-            <td style="background-color:#11181a;padding:28px 32px;text-align:center;">
-              <p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#F0BD00;">
-                Metzum · Konkurranse 2026
-              </p>
-              <h1 style="margin:0;font-size:26px;font-weight:800;color:#ffffff;line-height:1.2;">
-                Svette-stafetten
-              </h1>
-            </td>
+            <td style="height:6px;border-radius:12px 12px 0 0;background:linear-gradient(90deg,#93268f 0%,#f0bd00 50%,#07a2a8 100%);font-size:0;line-height:0;">&nbsp;</td>
           </tr>
-          <!-- Body -->
           <tr>
-            <td style="padding:32px;">
-              <p style="margin:0 0 16px;font-size:16px;line-height:1.5;color:#11181a;">
-                Hei!
-              </p>
-              <p style="margin:0 0 24px;font-size:16px;line-height:1.5;color:#4D4D4D;">
-                Klikk på knappen under for å logge inn og registrere sykkel- og løpeturer til jobb.
-                Lenken utløper om kort tid og kan bare brukes én gang.
-              </p>
-              <table role="presentation" cellspacing="0" cellpadding="0" style="margin:0 auto 24px;">
+            <td style="background-color:#ffffff;border-radius:0 0 16px 16px;overflow:hidden;box-shadow:0 12px 40px rgba(7,162,168,0.12);">
+              <!-- Header -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td style="border-radius:12px;background-color:#F0BD00;">
-                    <a href="{{ .ConfirmationURL }}"
-                       style="display:inline-block;padding:14px 32px;font-size:16px;font-weight:700;color:#11181a;text-decoration:none;">
-                      Logg inn
-                    </a>
+                  <td style="background-color:#11181a;padding:32px 28px 28px;text-align:center;">
+                    <img
+                      src="https://svette-stafetten.vercel.app/metzum.png"
+                      alt="Metzum"
+                      width="140"
+                      style="display:block;margin:0 auto 20px;max-width:140px;height:auto;border:0;"
+                    />
+                    <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#07a2a8;">
+                      Konkurranse 2026
+                    </p>
+                    <h1 style="margin:0;font-size:28px;font-weight:800;color:#ffffff;line-height:1.15;letter-spacing:-0.02em;">
+                      Svette-stafetten
+                    </h1>
+                    <p style="margin:12px 0 0;font-size:14px;line-height:1.4;color:#f0bd00;font-weight:600;">
+                      26. mai – 26. juni · sykkel &amp; løp til jobb
+                    </p>
                   </td>
                 </tr>
               </table>
-              <p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:#7a7a7a;">
-                Fungerer ikke knappen? Lim inn denne lenken i nettleseren:
-              </p>
-              <p style="margin:0;font-size:12px;line-height:1.5;word-break:break-all;">
-                <a href="{{ .ConfirmationURL }}" style="color:#004a9d;">{{ .ConfirmationURL }}</a>
-              </p>
-            </td>
-          </tr>
-          <!-- Footer -->
-          <tr>
-            <td style="padding:20px 32px 28px;border-top:1px solid #e0e0e0;background-color:#fcfcfc;">
-              <p style="margin:0;font-size:12px;line-height:1.5;color:#9a9a9a;text-align:center;">
-                Du mottar denne e-posten fordi du ba om innlogging på
-                <strong style="color:#4D4D4D;">Svette-stafetten</strong>.
-                <br />
-                Kun <strong>@metzum.no</strong>-adresser har tilgang.
-              </p>
+              <!-- Body -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td style="padding:32px 28px 8px;">
+                    <p style="margin:0 0 16px;font-size:17px;line-height:1.5;color:#11181a;font-weight:600;">
+                      Hei!
+                    </p>
+                    <p style="margin:0 0 20px;font-size:16px;line-height:1.6;color:#4d4d4d;">
+                      Klikk knappen under for å logge inn og registrere turer på ledertavlen.
+                      Lenken er personlig, utløper snart og kan bare brukes én gang.
+                    </p>
+                    <!-- Points hint -->
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 28px;background:linear-gradient(135deg,rgba(240,189,0,0.15) 0%,rgba(7,162,168,0.08) 100%);border-radius:12px;border:1px solid rgba(240,189,0,0.35);">
+                      <tr>
+                        <td style="padding:16px 18px;">
+                          <p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#c09100;">
+                            Poeng
+                          </p>
+                          <p style="margin:0;font-size:14px;line-height:1.5;color:#4d4d4d;">
+                            <strong style="color:#11181a;">Tur-retur</strong> = 2 poeng &nbsp;·&nbsp;
+                            <strong style="color:#11181a;">En vei</strong> = 1 poeng
+                            <br />
+                            <span style="font-size:13px;color:#7a7a7a;">Maks én tur per dag</span>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                    <!-- CTA -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" width="100%" style="margin:0 0 28px;">
+                      <tr>
+                        <td align="center">
+                          <a href="{{ .ConfirmationURL }}"
+                             style="display:inline-block;padding:16px 40px;font-size:17px;font-weight:800;color:#11181a;text-decoration:none;border-radius:12px;background:linear-gradient(90deg,#f0bd00 0%,#f5c933 100%);box-shadow:0 6px 20px rgba(240,189,0,0.45);">
+                            Logg inn på Svette-stafetten
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                    <p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:#7a7a7a;">
+                      Fungerer ikke knappen? Kopier lenken:
+                    </p>
+                    <p style="margin:0 0 24px;font-size:12px;line-height:1.6;word-break:break-all;">
+                      <a href="{{ .ConfirmationURL }}" style="color:#004a9d;text-decoration:underline;">{{ .ConfirmationURL }}</a>
+                    </p>
+                  </td>
+                </tr>
+                <!-- Footer -->
+                <tr>
+                  <td style="padding:20px 28px 28px;border-top:1px solid #e8e8e8;background-color:#fcfcfc;">
+                    <p style="margin:0;font-size:12px;line-height:1.6;color:#9a9a9a;text-align:center;">
+                      Du mottar denne e-posten fordi du ba om innlogging på
+                      <strong style="color:#4d4d4d;">Svette-stafetten</strong>.
+                      <br />
+                      Kun <strong style="color:#11181a;">@metzum.no</strong> har tilgang.
+                      <br /><br />
+                      <a href="https://svette-stafetten.vercel.app" style="color:#07a2a8;text-decoration:none;font-weight:600;">svette-stafetten.vercel.app</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
         </table>

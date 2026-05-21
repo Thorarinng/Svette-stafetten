@@ -9,7 +9,7 @@ import {
 } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
 import { getDisplayName } from '../lib/auth'
-import { getAuthRedirectUrl } from '../lib/authRedirect'
+import { getAuthRedirectUrl, redirectAuthHashToProductionIfNeeded } from '../lib/authRedirect'
 import { allowedEmailError, isAllowedEmail } from '../lib/email'
 import { supabase } from '../lib/supabase'
 
@@ -28,6 +28,10 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    redirectAuthHashToProductionIfNeeded()
+  }, [])
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {

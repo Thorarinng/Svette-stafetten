@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { hasDisplayName } from '../lib/auth'
 import { useAuth } from '../contexts/AuthContext'
-import { isLocalDevOrigin } from '../lib/authRedirect'
+import { getAuthRedirectUrl, isLocalDevOrigin } from '../lib/authRedirect'
+import { PRODUCTION_APP_URL } from '../lib/authConfig'
 import { ALLOWED_EMAIL_DOMAINS } from '../lib/email'
 
 export function AuthPanel() {
@@ -34,10 +35,17 @@ export function AuthPanel() {
           Kun {ALLOWED_EMAIL_DOMAINS.map((d) => `@${d}`).join(' / ')}. Magisk lenke — ingen
           passord.
         </p>
-        {isLocalDevOrigin() && (
+        {isLocalDevOrigin() ? (
           <p className="mt-2 rounded-xl bg-warning/10 px-3 py-2 text-xs font-medium text-warning ring-1 ring-warning/20">
-            Du er på localhost — innloggingslenken i e-posten peker hit. For produksjon: åpne
-            Vercel-URL-en og be om ny lenke der.
+            Lokalt: lenken går til <strong>{getAuthRedirectUrl()}</strong>. For prod: bruk{' '}
+            <a href={PRODUCTION_APP_URL} className="underline">
+              {PRODUCTION_APP_URL}
+            </a>
+          </p>
+        ) : (
+          <p className="mt-2 text-xs text-gray-400">
+            Innloggingslenke sendes til{' '}
+            <span className="font-medium text-accent-teal">{getAuthRedirectUrl()}</span>
           </p>
         )}
 

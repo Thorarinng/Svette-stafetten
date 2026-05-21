@@ -13,6 +13,8 @@ Supabase sender magisk lenke-e-post. Standardteksten («powered by Supabase») e
 4. **Body** — bytt til **HTML** (hvis det finnes toggle), lim inn hele [`magic-link.html`](./magic-link.html)
 5. Klikk **Save**
 
+**Emne:** `Logg inn på Svette-stafetten` (fra [`magic-link-subject.txt`](./magic-link-subject.txt))
+
 Test: logg ut i appen → «Send innloggingslenke» → sjekk innboks.
 
 ## Viktig: behold denne variabelen
@@ -31,8 +33,10 @@ Det er lenken brukeren klikker for å logge inn. Uten den fungerer ikke innloggi
 
 | Felt | Verdi |
 |------|--------|
-| Site URL | `https://din-app.vercel.app` (produksjon — **ikke** localhost som Site URL) |
-| Redirect URLs | `https://din-app.vercel.app` **og** `http://localhost:5173` |
+| Site URL | `https://svette-stafetten.vercel.app` (**må** være prod — ikke localhost) |
+| Redirect URLs | `https://svette-stafetten.vercel.app` **og** `http://localhost:5173` |
+
+Hvis Site URL fortsatt er `http://localhost:5173`, vil e-postlenker peke feil uansett app-kode.
 
 **Magisk lenke peker dit brukeren ber om innlogging:** localhost → `http://localhost:5173`, Vercel → produksjons-URL. Sett `VITE_APP_URL` på Vercel (se README).
 
