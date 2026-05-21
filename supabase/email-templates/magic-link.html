@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Svette-stafetten</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f0f0f0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#f0f0f0;padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:480px;background-color:#fcfcfc;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(17,24,26,0.12);">
+          <!-- Header -->
+          <tr>
+            <td style="background-color:#11181a;padding:28px 32px;text-align:center;">
+              <p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#F0BD00;">
+                Metzum · Konkurranse 2026
+              </p>
+              <h1 style="margin:0;font-size:26px;font-weight:800;color:#ffffff;line-height:1.2;">
+                Svette-stafetten
+              </h1>
+            </td>
+          </tr>
+          <!-- Body -->
+          <tr>
+            <td style="padding:32px;">
+              <p style="margin:0 0 16px;font-size:16px;line-height:1.5;color:#11181a;">
+                Hei!
+              </p>
+              <p style="margin:0 0 24px;font-size:16px;line-height:1.5;color:#4D4D4D;">
+                Klikk på knappen under for å logge inn og registrere sykkel- og løpeturer til jobb.
+                Lenken utløper om kort tid og kan bare brukes én gang.
+              </p>
+              <table role="presentation" cellspacing="0" cellpadding="0" style="margin:0 auto 24px;">
+                <tr>
+                  <td style="border-radius:12px;background-color:#F0BD00;">
+                    <a href="{{ .ConfirmationURL }}"
+                       style="display:inline-block;padding:14px 32px;font-size:16px;font-weight:700;color:#11181a;text-decoration:none;">
+                      Logg inn
+                    </a>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:#7a7a7a;">
+                Fungerer ikke knappen? Lim inn denne lenken i nettleseren:
+              </p>
+              <p style="margin:0;font-size:12px;line-height:1.5;word-break:break-all;">
+                <a href="{{ .ConfirmationURL }}" style="color:#004a9d;">{{ .ConfirmationURL }}</a>
+              </p>
+            </td>
+          </tr>
+          <!-- Footer -->
+          <tr>
+            <td style="padding:20px 32px 28px;border-top:1px solid #e0e0e0;background-color:#fcfcfc;">
+              <p style="margin:0;font-size:12px;line-height:1.5;color:#9a9a9a;text-align:center;">
+                Du mottar denne e-posten fordi du ba om innlogging på
+                <strong style="color:#4D4D4D;">Svette-stafetten</strong>.
+                <br />
+                Kun <strong>@metzum.no</strong>-adresser har tilgang.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

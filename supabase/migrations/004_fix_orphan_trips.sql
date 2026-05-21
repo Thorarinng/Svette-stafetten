@@ -1,0 +1,7 @@
+-- Valgfritt: turer opprettet uten user_id (før innlogging) kan ikke redigeres.
+-- Sett user_id manuelt for kjente rader, eller slett testdata:
+--
+-- update public.trips set user_id = 'din-auth-user-uuid' where id = 'tur-uuid';
+--
+-- Sjekk foreldreløse turer:
+-- select id, name, user_id, created_at from public.trips where user_id is null;
