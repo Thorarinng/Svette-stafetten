@@ -1,33 +1,32 @@
 import { PRODUCTION_APP_URL } from './authConfig'
 
 /**
- * URL brukeren sendes til etter magisk lenke (emailRedirectTo).
- * - npm run dev → localhost
- * - Vercel (produksjonsbuild) → alltid PRODUCTION_APP_URL
+ * URL etter magisk lenke (emailRedirectTo / redirect_to).
+ * Standard: alltid produksjon — også når du kjører npm run dev.
+ * Kun med VITE_USE_LOCAL_AUTH=true → localhost.
  */
 export function getAuthRedirectUrl(): string {
-  const envUrl = import.meta.env.VITE_APP_URL?.trim()
-  if (envUrl) {
-    return envUrl.replace(/\/$/, '')
+  if (import.meta.env.VITE_USE_LOCAL_AUTH === 'true') {
+    return window.location.origin
   }
 
-  if (import.meta.env.DEV) {
-    return window.location.origin
+  const envUrl = import.meta.env.VITE_APP_URL?.trim()
+  if (envUrl && !isLocalhostUrl(envUrl)) {
+    return envUrl.replace(/\/$/, '')
   }
 
   return PRODUCTION_APP_URL
 }
 
-export function isLocalDevOrigin(): boolean {
-  const origin = window.location.origin
-  return (
-    origin.includes('localhost') ||
-    origin.includes('127.0.0.1') ||
-    origin.includes('[::1]')
-  )
+function isLocalhostUrl(url: string): boolean {
+  return /localhost|127\.0\.0\.1|\[::1\]/i.test(url)
 }
 
-/** Etter klikk på magisk lenke: localhost + token → send til Vercel */
+export function isLocalDevOrigin(): boolean {
+  return isLocalhostUrl(window.location.origin)
+}
+
+/** localhost + innloggingstoken → Vercel */
 export function redirectAuthHashToProductionIfNeeded(): void {
   if (!isLocalDevOrigin()) return
 
@@ -36,7 +35,8 @@ export function redirectAuthHashToProductionIfNeeded(): void {
   const hasAuthParams =
     hash.includes('access_token') ||
     hash.includes('refresh_token') ||
-    search.includes('code=')
+    search.includes('code=') ||
+    search.includes('token_hash=')
 
   if (!hasAuthParams) return
 

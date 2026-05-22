@@ -68,14 +68,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!trimmed) throw new Error('E-post er påkrevd')
     if (!isAllowedEmail(trimmed)) throw new Error(allowedEmailError())
 
+    const redirectUrl = getAuthRedirectUrl()
+
     const { error } = await supabase.auth.signInWithOtp({
       email: trimmed,
       options: {
-        emailRedirectTo: getAuthRedirectUrl(),
+        emailRedirectTo: redirectUrl,
       },
     })
 
-    if (error) throw new Error(error.message)
+    if (error) {
+      if (
+        error.message.includes('redirect') ||
+        error.message.includes('Redirect')
+      ) {
+        throw new Error(
+          `${error.message} — Legg til ${redirectUrl} under Supabase → Authentication → URL Configuration → Redirect URLs.`,
+        )
+      }
+      throw new Error(error.message)
+    }
   }, [])
 
   const signOut = useCallback(async () => {

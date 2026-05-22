@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { hasDisplayName } from '../lib/auth'
 import { useAuth } from '../contexts/AuthContext'
-import { getAuthRedirectUrl, isLocalDevOrigin } from '../lib/authRedirect'
-import { PRODUCTION_APP_URL } from '../lib/authConfig'
+import { getAuthRedirectUrl } from '../lib/authRedirect'
 import { ALLOWED_EMAIL_DOMAINS } from '../lib/email'
 
 export function AuthPanel() {
@@ -12,6 +11,7 @@ export function AuthPanel() {
   const [profileName, setProfileName] = useState('')
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
+  const redirectUrl = getAuthRedirectUrl()
   const [error, setError] = useState<string | null>(null)
 
   if (loading) {
@@ -35,19 +35,13 @@ export function AuthPanel() {
           Kun {ALLOWED_EMAIL_DOMAINS.map((d) => `@${d}`).join(' / ')}. Magisk lenke — ingen
           passord.
         </p>
-        {isLocalDevOrigin() ? (
-          <p className="mt-2 rounded-xl bg-warning/10 px-3 py-2 text-xs font-medium text-warning ring-1 ring-warning/20">
-            Lokalt: lenken går til <strong>{getAuthRedirectUrl()}</strong>. For prod: bruk{' '}
-            <a href={PRODUCTION_APP_URL} className="underline">
-              {PRODUCTION_APP_URL}
-            </a>
-          </p>
-        ) : (
-          <p className="mt-2 text-xs text-gray-400">
-            Innloggingslenke sendes til{' '}
-            <span className="font-medium text-accent-teal">{getAuthRedirectUrl()}</span>
-          </p>
-        )}
+        <p className="mt-2 rounded-xl bg-accent-teal/10 px-3 py-2 text-xs text-gray-600 ring-1 ring-accent-teal/25">
+          Etter innlogging sendes du til{' '}
+          <strong className="text-secondary">{redirectUrl}</strong>
+          {import.meta.env.VITE_USE_LOCAL_AUTH === 'true' && (
+            <span className="block mt-1 text-warning">(lokal modus — VITE_USE_LOCAL_AUTH)</span>
+          )}
+        </p>
 
         <form
           className="mt-4 space-y-3"
@@ -58,7 +52,9 @@ export function AuthPanel() {
             setBusy(true)
             try {
               await signInWithEmail(email)
-              setMessage('Sjekk innboksen din og klikk på lenken for å logge inn.')
+              setMessage(
+                `Sjekk innboksen. Lenken skal peke til ${redirectUrl} — ikke localhost.`,
+              )
               setEmail('')
             } catch (err) {
               setError(err instanceof Error ? err.message : 'Innlogging feilet')
